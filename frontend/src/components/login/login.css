@@ -1,0 +1,78 @@
+@import "../../global.css";
+@import url('https://fonts.googleapis.com/css?family=Bungee+Shade');
+@import url('https://fonts.googleapis.com/css?family=Racing+Sans+One');
+
+.login {
+    background-color: var(--primary-bg);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url(../../images/Login_BG.png);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-replace;
+    
+}
+
+
+.login-title {
+    font-size: 2rem;
+    color: var(--primary-text);
+    /* margin-bottom: 20px; */
+}
+
+.login-author {
+    text-align: center;
+    font-size: 18px;
+    color: rgb(201, 198, 198);
+    /* margin-bottom: 40px; */
+    font-family: 'Poppins', sans-serif;
+    
+}
+
+.login-headline {
+  margin: 0;
+}
+
+.login-projectName{
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(227, 250, 114);
+    font-size: 68px;
+    font-weight: bold;
+}
+
+.login-highlight {
+    color: var(--highlight-text);
+}
+
+.login-logo {
+    height: 15vmin;
+    margin-bottom: 30px;
+    pointer-events: none;
+    filter: drop-shadow(0 0 5px var(--secondary-text));
+}
+
+h2 {
+    font-size: 68px;
+    color: rgb(176, 211, 71);
+    font-family: 'Racing Sans One', sans-serif;
+  }
+
+
+h4 {
+    font-size: 14px;
+    color: grey;
+  }
+
+
+@keyframes login-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+}

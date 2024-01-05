@@ -1,0 +1,88 @@
+@import "../../global.css";
+
+.paytoqr-background{
+    text-align: center;
+    background-color: var(--BackgroundUncovered);
+    min-height: 100vh;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(../../images/QR_BG.png);
+    background-size: cover;
+    padding-top: 70px;
+}
+
+.paytoqr{
+    text-align: center;
+    background-color: var(--BackgroundUncovered);
+    width: 80%;
+    display: flex;
+    flex-direction: column; /* Ensure children stack vertically */
+    align-items: center;
+    justify-content: center;   
+}
+
+.paytoqr-intro {
+    margin-top: 0; /* remove margin-top if you have padding-top in the parent container */
+    padding-top: 20px; /* You can adjust padding to manage space */
+    position: relative; /* Add position relative if you want to use z-index */
+    z-index: 10; 
+    width: 65%;
+    height: 100%;
+    font-size: 30px;
+    text-align: center;
+    padding-right: 10px;
+    color: yellowgreen;
+}
+
+.paytoqr-vertLine{
+    height: 100%;
+    width: 1px;
+    background-color: var(--BackgroundCovered);
+}
+
+.paytoqr-box{
+    height: 100%;
+    flex-direction: column;
+    text-align: left;
+    font-size: 20px;
+    padding-left: 20px;
+    color: var(--MessageColorUncovered);
+}
+
+.paytoqr-storeBox{
+    text-align: left;
+    font-size: 15px;
+    color: var(--KeyMessageColor);
+}
+
+.paytoqr-getBox{
+    text-align: left;
+    font-size: 15px;
+    color: var(--MessageColorUncovered);
+}
+
+.qrScanner {
+    width: 300px;  /* Adjust as per your requirement */
+    height: 300px; /* Adjust as per your requirement */
+    margin: 0 auto; /* This will center the scanner if its parent container is flex or grid */
+    position: relative;
+}
+
+.qrOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 8px solid rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    pointer-events: none;
+}
+
+body, html {
+    height: 100%;
+    margin: 0; /* Reset default margin */
+    overflow: auto; /* This allows the document to scroll */
+}

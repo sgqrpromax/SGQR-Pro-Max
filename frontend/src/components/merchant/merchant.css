@@ -1,0 +1,135 @@
+@import "../../global.css";
+
+.merchant-background{
+    text-align: top;
+    background-color: var(--primary-bg);
+    min-height: 100vh;
+    width: 100%;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: top;
+    background-image: url(../../images/History_BG.png);
+    background-size: cover;
+}
+
+.merchant{
+    text-align: center;
+    background-color: black;
+    width: 80%;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: yellowgreen;
+
+    padding-top: 80px;
+    padding-bottom: 50px;
+}
+
+.merchant-menuFramework{
+    width: 100%;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.merchant-menu{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.merchant-element{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.merchant-elementInner{
+    width: 100%;
+    display: flex;
+    padding-top: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.merchant-listNumber{
+    font-size: 20px;
+    width: 5%;
+    text-align: center;
+    color: var(--MessageColorUncovered);
+    background-color: var(--BackgroundMasked);
+}
+
+.merchant-listAccount{
+    font-size: 20px;
+    width: 44%;
+    text-align: center;
+    color: var(--MessageColorUncovered);
+}
+
+.merchant-listOperation{
+    font-size: 20px;
+    width: 10%;
+    text-align: center;
+    color: var(--MessageColorUncovered);
+    background-color: var(--BackgroundMasked);
+}
+
+.merchant-listValue{
+    font-size: 20px;
+    width: 14%;
+    text-align: center;
+    color: var(--MessageColorUncovered);
+}
+
+.merchant-listCost{
+    font-size: 20px;
+    width: 20%;
+    text-align: center;
+    color: var(--MessageColorUncovered);
+    background-color: var(--BackgroundMasked);
+}
+
+.merchant-listMenuStatus{
+    font-size: 20px;
+    width: 7%;
+    text-align: center;
+    color: var(--MessageColorUncovered);
+}
+
+.merchant-listStatus{
+    width: 7%;
+    display: flex;
+    justify-content: right;
+    color: var(--MessageColorUncovered);
+}
+
+.merchant-approved{
+    font-size: 20px;
+    width: 90%;
+    text-align: center;
+    background-color: var(--ApprovedColor);
+    color: var(--ApprovedColor);
+}
+
+.merchant-invalid{
+    font-size: 20px;
+    width: 90%;
+    text-align: center;
+    background-color: var(--InvalidColor);
+    color: var(--InvalidColor);
+}
+
+.merchant-rejected{
+    font-size: 20px;
+    width: 90%;
+    text-align: center;
+    background-color: var(--RejectedColor);
+    color: var(--RejectedColor);
+}

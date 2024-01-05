@@ -1,0 +1,14 @@
+name: sgqr+
+plugins:
+  - name: solidity
+
+dependencies:
+  - name: OpenZeppelin
+    github: OpenZeppelin/openzeppelin-contracts
+    version: 5.0.0
+
+solidity: 
+  import_remapping:
+    - "@openzeppelin=OpenZeppelin/5.0.0"
+
+contracts_folder: contracts/  # Default is 'contracts/'
