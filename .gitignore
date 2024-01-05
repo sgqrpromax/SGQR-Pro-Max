@@ -1,0 +1,45 @@
+# Others
+.DS_Store
+.vscode
+H02.sol
+IERC20.sol
+artifacts
+
+# Ape stuff
+.cache
+
+# Python
+.env
+.venv
+.pytest_cache
+.python-version
+__pycache__
+
+# Dependencies
+/frontend/node_modules/
+
+# Build directory
+/frontend/build/
+/frontend/dist/
+
+# Environment files
+/frontend/.env
+/frontend/.env.local
+/frontend/.env.*.local
+
+# Editor directories
+/frontend/.idea/
+/frontend/.vscode/
+
+# Cache directories
+/frontend/.cache/
+*.log*
+
+# OS generated files
+Thumbs.db
+
+# Jest
+/frontend/coverage/
+
+# Yarn integrity file
+/frontend/.yarn-integrity
