@@ -73,7 +73,7 @@ export default function App() {
             //setBalance(bal);
             setIsConnected(true);
 
-            navigate('/profile');
+            navigate('/paytoqr');
         }
         catch (error){
             setIsConnected(false);
