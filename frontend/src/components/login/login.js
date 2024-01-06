@@ -24,8 +24,8 @@ export default function Login(props){
         return (
             <div>
                 
-                <a className = "global-btn" onClick = {props.connectTo} >
-                    Get started
+                <a className = "login-btn" onClick = {props.connectTo} >
+                    Get started!
                 </a>
             </div>
         )
@@ -33,28 +33,25 @@ export default function Login(props){
 
     return (
         <div className="login">
+            <div className='login-container'>
+                <h1>
+                    <span className="login-projectName">SGQR+</span>
+                </h1>
 
-            <h1>
-                <span className="login-projectName"> 
-                SGQR+ </span>
-            </h1>
+                <h2 className="login-headline">Pay with the power of Blockchain</h2>
+                
+                <h3 className="login-author">
+                    SGQR+ is a blockchain-powered digital payment solution that promises instant onboarding, zero downtime, and a seamless payment experience.
+                </h3>
+                
+                
+                {
+                    props.isHaveMetamask ?
+                    <LoginMetamask /> :
+                    <NoMetamask />
+                }
+            </div>
 
-            <h2 className="login-headline">Pay with the power of Blockchain
-                    </h2>
-            
-            <h3><span className="login-author">
-            SGQR+ is a blockchain-powered digital payment solution that promises <br />instant onboarding, zero downtime, and a seamless payment experience.
-                </span></h3>
-            
-            
-            {
-                props.isHaveMetamask ?
-                <LoginMetamask /> :
-                <NoMetamask />
-            }
-
-            <h4>
-                    </h4>
         </div>
     )    
 }
