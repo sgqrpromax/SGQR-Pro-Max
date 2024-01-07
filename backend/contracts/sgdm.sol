@@ -35,32 +35,13 @@ interface Iadmin_management {
 
 contract sgdm is ERC20 {
 	/*
-	For now, we are implementing only a single token banking application. 
+	
 
-	Attempts to implement ERC20 token standard:
-	Public view:
-	- function name() public view returns (string)
-	- function symbol() public view returns (string)
-	- function decimals() public view returns (uint8)
-	- function totalSupply() public view returns (uint256)
-	- function balanceOf(address _owner) public view returns (uint256 balance)
-	- function allowance(address _owner, address _spender) public view returns (uint256 remaining)
 
-	- event Transfer(address indexed _from, address indexed _to, uint256 _value)
-	- event Approval(address indexed _owner, address indexed _spender, uint256 _value)
-
-	Functions:
-	- function transfer(address _to, uint256 _value) public returns (bool success)
-	- function transferFrom(address _from, address _to, uint256 _value) public returns (bool success)
-	- function approve(address _spender, uint256 _value) public returns (bool success)
-
-	Before transfer and transferFrom, check the allowance for both this contract and the actual ERC20 token we want to transfer to and from. For now, we ignore the approve and transferFrom functions and implement only the transfer function. 
-
-	For balanceOf, it will return the value corresponding to the whitelist. 
 	*/
 
-	// Contains the ERC20 token contract address. This should theoretically be ERC20
-	IERC20 public token;
+	// Contains the ERC20 target token address. This has to be an ERC20. 
+	IERC20 public targetToken;
 
 	// Mapping of UEN to amount of tokens they contain. 
 	mapping(string => uint256) public uen_to_balance;
@@ -68,15 +49,17 @@ contract sgdm is ERC20 {
 	// Contains the list of admins for this contract. 
 	Iadmin_management admin_management_contract;
 	address[] public admins;
-	// Contains the list of UENs.
+
+	// Contains the list of UEN
 	Iuen_management uen_management_contract;
+
 	// Contains the contract of the mapping of the UEN to the whitelisted address. This can also query whitelisted address to UEN.
 	Iwhitelist whitelist_contract;
 
-	constructor (address _token1, address _uen_management_contract_address, address _admin_management_contract_address, address _whitelist_management_contract_address) ERC20 ("SGDm", "SGDm") {
+	constructor (address _targetToken, address _uen_management_contract_address, address _admin_management_contract_address, address _whitelist_management_contract_address) ERC20 ("SGDm", "SGDm") {
 		
 		// Specify the token to use
-		token = IERC20(_token1);
+		targetToken = IERC20(_targetToken);
 
 		// UEN management contract
 		uen_management_contract = Iuen_management(_uen_management_contract_address);
@@ -102,21 +85,22 @@ contract sgdm is ERC20 {
 		require(is_owner, "Only admins can call this function");
 		_;
 	}
-
-	// Function for admins to withdraw tokens from the contract. This is essentially a withdraw function.
-	function admin_withdraw(address _to, uint256 _amount) external only_admin returns (bool) {
-		require(_to != address(0), "Withdraw to the zero address");
-		if (token.balanceOf(address(this)) < _amount) {
-			return false;
-		}
-		token.transfer(_to, _amount);
-		return true;
-	}
-
+	
 	// Get name of the UEN. This is a public function. If no name exists, break.
 	modifier check_name(string memory _uen) {
 		require(bytes(uen_management_contract.get_name(_uen)).length > 0, "UEN does not exist");
 		_;
+	}
+
+	// Function for admins to withdraw tokens from the contract. This is essentially a withdraw function.
+	function admin_withdraw(address _to, uint256 _amount) external only_admin returns (bool) {
+		require(_to != address(0), "Withdraw to the zero address");
+		
+		uint256 _balance = targetToken.balanceOf(address(this));
+		require (_balance >= _amount, "Not enough balance");
+
+		targetToken.transfer(_to, _amount);
+		return true;
 	}
 
 	// Get name for UEN. This is a public function.
@@ -131,7 +115,7 @@ contract sgdm is ERC20 {
 
 	// Check ERC20 allowance
 	function check_allowance(address _address) external view returns (uint256) {
-		return token.allowance(_address, address(this));
+		return targetToken.allowance(_address, address(this));
 	}
 
 	// Balance of UEN
@@ -147,13 +131,15 @@ contract sgdm is ERC20 {
 	After sending, update the mapping of UEN to balance. 
 	If there is an associated whitelist address, emit and event to notify the whitelist address of the transfer.
 	*/
-	
-	function send_tokens_to_uen(string memory _uen, uint256 _amount) external check_name(_uen) returns (bool) {
+	function send_token_to_uen(string memory _uen, uint256 _amount) external check_name(_uen) returns (bool) {
 		require(bytes(_uen).length > 0, "UEN is empty");
-		uint256 token_allowance = token.allowance(msg.sender, address(this));
+		
+		uint256 token_allowance = targetToken.allowance(msg.sender, address(this));
     	require(token_allowance >= _amount, "Increase the allowance");
-		token.transferFrom(msg.sender, address(this), _amount);
+		
+		targetToken.transferFrom(msg.sender, address(this), _amount);
 		uen_to_balance[_uen] += _amount;
+		
 		address _uen_address = whitelist_contract.get_uen_to_whitelist(_uen);
 		if (_uen_address != address(0)) {
 			emit Transfer(msg.sender, _uen_address, _amount);
@@ -193,20 +179,19 @@ contract sgdm is ERC20 {
 	function transfer(address _to, uint256 _amount) public override returns (bool) {
 		require(_to != address(0), "Transfer to zero address");
 		string memory _uen_sender = whitelist_contract.get_whitelist_to_uen(msg.sender);
-		uint _balance = uen_to_balance[_uen_sender]
+		
+		uint256 _balance = uen_to_balance[_uen_sender]
 		require (_balance >= _amount, "Not enough balance");
-		uint256 _tokenBalance = token.balanceOf(msg.sender);
-    	require(_tokenBalance >= _amount, "Not enough token balance");
 		
 		uen_to_balance[_uen_sender] -= _amount;
 		emit Transfer(msg.sender, _to, _amount);
-		token.transfer(_to, _amount);
+		targetToken.transfer(_to, _amount);
 		return true;
 	}
 
 	// Return token address
 	function token_address() external view returns (address) {
-		return address(token);
+		return address(targetToken);
 	}
 
 	// Decimals
@@ -216,7 +201,7 @@ contract sgdm is ERC20 {
 
 	// Total supply, returns the token total supply
 	function totalSupply() public view override returns (uint256) {
-		return uint256(token.totalSupply());
+		return uint256(targetToken.totalSupply());
 	}
 
 	// Balance of, returns the balance of the UEN which the _owner is associated with.
@@ -228,13 +213,13 @@ contract sgdm is ERC20 {
 
 	// Function for allowance. This should return the allowance for token.
 	function allowance(address _owner, address _spender) external view override returns (uint256) {
-		uint256 memory _amount = token.allowance(_owner, _spender);
+		uint256 memory _amount = targetToken.allowance(_owner, _spender);
 		return _amount;
 	}
 
 	// Function for approval. This should approve the spender to spend the amount of tokens.
 	function approve(address _spender, uint256 _amount) external override returns (bool) {
-		token.approve(_spender, _amount);
+		targetToken.approve(_spender, _amount);
 		return true;
 	}
 }
