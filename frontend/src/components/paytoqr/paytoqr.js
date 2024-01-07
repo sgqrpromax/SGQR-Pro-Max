@@ -103,25 +103,41 @@ export default function PayToQR(props) {
     };
 
     const handleScan = (result) => {
+        function isLetter(str) {
+            return str.length === 1 && str.match(/[a-z]/i);
+          }
+
         if (result) {
             const { text } = result; // Destructuring to get the text directly from the result
             console.log("Scanned QR Data lol:", text);
-
-            // Using a regular expression to find a '+' followed by ten alphanumeric characters
-            const pattern = /PAYNOW010120210([A-Za-z0-9]{10})/;
+    
+            // Define a pattern to match the known starting strings and the following characters
+            const pattern = /PAYNOW01012021[023]([A-Za-z0-9]{10})/;
             const match = text.match(pattern);
 
-            // If a match is found, set extractedData to the matching group, otherwise set to full text
-            if (match && match[1]) {
-                console.log("Parsed QR Data:", match[1]); // Log the parsed data
-                setExtractedData(match[1]); // Set the parsed data to the extractedData state
+            console.log("match lol:", match);
+    
+            if (match) {
+                // Get the 8th character from the end of the matched substring
+                const eigthChar = match[1][match[1].length - 2]; // Second Last character of the first captured group
+                console.log("eigthChar lol:", eigthChar);
+    
+                if (isLetter(eigthChar)) {
+                    // If the 8th character is an alphabet, it's a 9 character UEN
+                    console.log("Parsed QR Data (9-character UEN):", match[1].slice(0, -1)); // Exclude the last character
+                    setExtractedData(match[1].slice(0, -1)); // Set the 9-character UEN
+                } else {
+                    // Else, assume it's a 10 character UEN
+                    console.log("Parsed QR Data (10-character UEN):", match[1]); // Include all characters
+                    setExtractedData(match[1]); // Set the 10-character UEN
+                }
             } else {
                 console.log("Full QR Data:", text); // Log the full QR data
                 setExtractedData(text); // Set the full QR text to the extractedData state
             }
         }
-    };    
-
+    };
+    
     const handleError = (err) => {
         console.error("QR Reader Error:", err);
     }
