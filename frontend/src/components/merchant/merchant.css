@@ -13,9 +13,9 @@
     background-size: cover;
 }
 
-.merchant{
+/* .merchant{
     text-align: center;
-    background-color: black;
+    background-color: green;
     width: 80%;
     flex-direction: column;
     display: flex;
@@ -25,6 +25,16 @@
 
     padding-top: 80px;
     padding-bottom: 50px;
+} */
+
+.merchant {
+    /* min-height: 100vh; */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 0;
+    margin-bottom: 10vh;
 }
 
 .merchant-menuFramework{
@@ -132,4 +142,51 @@
     text-align: center;
     background-color: var(--RejectedColor);
     color: var(--RejectedColor);
+}
+
+.form-group {
+    color: var(--button-bg);
+    width: 60%;
+    max-width: 500px;
+    border-radius: 20px;
+    border: 2px solid var(--button-border);
+    background-color: rgba(79, 79, 79, 0.25);
+    /* border: 2px solid var(--button-bg); */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 20px;
+    min-width: 300px;
+    margin-bottom: 20px;
+    
+}
+
+.withdraw-form-component {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    border: 2px solid var(--button-bg);
+    background-color: transparent;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+}
+
+.merchant-btn {
+    cursor: pointer;
+    border: 2px solid transparent;
+    background-color: var(--button-bg);
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 10px;
+}
+
+.merchant-btn:hover {
+    background-color: transparent;
+    color: var(--button-bg);
+    border: 2px solid var(--button-bg);
 }

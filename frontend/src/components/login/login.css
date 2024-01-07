@@ -96,8 +96,9 @@ h4 {
 }
 
 .login-btn:hover {
-  background-color: var(--button-border);
   cursor: pointer;
+  color: var(--button-bg);
+  text-decoration: underline;
   padding: 5px;
 }
 
