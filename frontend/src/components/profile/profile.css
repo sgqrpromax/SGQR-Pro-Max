@@ -1,9 +1,10 @@
 @import "../../global.css";
 
-.profile-background{
+/* .profile-background{
     background-image: url("../../images/Profile_BG.png");
     background-size: 100%;
     background-position-x: center;
+    background-repeat: no-replace;
     background-color:var(--BackgroundUncovered);
 
 
@@ -14,16 +15,31 @@
     display: flex;
     align-items: center;
     justify-content: center;
+} */
+
+.profile-background{
+    background-image: url("../../images/Profile_BG.png");
+    text-align: top;
+    background-color: var(--primary-bg);
+    height: 100vh;
+    width: 100%;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    justify-content: top;
 }
 
 .profile{
     
-    background-color: var(--BackgroundUncovered);
-    height: 27.5%;
-    width: 64%;
+    /* background-color: var(--BackgroundUncovered); */
+    /* background-color: red; */
+    width: 75%;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    margin-bottom: 10vh;
 }
 
 .profile-account{
@@ -61,4 +77,8 @@ a:visited{
         color: orange;
         background-color: transparent;
         text-decoration: none;
+  }
+
+  .profile-balance {
+    font-size: 60px;
   }

@@ -1,6 +1,6 @@
 import './login.css';
 import '../../global.css';
-import logo from '../../images/logo.svg';
+import logo from '../../images/logo-icon-no-bg.png';
 
 export default function Login(props){
 
@@ -24,8 +24,8 @@ export default function Login(props){
         return (
             <div>
                 
-                <a className = "global-btn" onClick = {props.connectTo} >
-                    Get started
+                <a className = "login-btn" onClick = {props.connectTo} >
+                    Get started!
                 </a>
             </div>
         )
@@ -33,28 +33,23 @@ export default function Login(props){
 
     return (
         <div className="login">
+            <div className='login-container'>
+                <img src={logo} />
 
-            <h1>
-                <span className="login-projectName"> 
-                SGQR+ </span>
-            </h1>
+                <h2 className="login-headline">Pay with the power of Blockchain</h2>
+                
+                <h3 className="login-author">
+                    SGQR Pro Max is a blockchain-powered digital payment solution that promises instant onboarding, zero downtime, and a seamless payment experience.
+                </h3>
+                
+                
+                {
+                    props.isHaveMetamask ?
+                    <LoginMetamask /> :
+                    <NoMetamask />
+                }
+            </div>
 
-            <h2 className="login-headline">Pay with the power of Blockchain
-                    </h2>
-            
-            <h3><span className="login-author">
-            SGQR+ is a blockchain-powered digital payment solution that promises <br />instant onboarding, zero downtime, and a seamless payment experience.
-                </span></h3>
-            
-            
-            {
-                props.isHaveMetamask ?
-                <LoginMetamask /> :
-                <NoMetamask />
-            }
-
-            <h4>
-                    </h4>
         </div>
     )    
 }

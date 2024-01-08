@@ -11,6 +11,7 @@
     background-image: url(../../images/QR_BG.png);
     background-size: cover;
     padding-top: 70px;
+    padding-bottom: 10vh;
 }
 
 .paytoqr{
@@ -64,9 +65,9 @@
 }
 
 .qrScanner {
-    width: 300px;  /* Adjust as per your requirement */
-    height: 300px; /* Adjust as per your requirement */
-    margin: 0 auto; /* This will center the scanner if its parent container is flex or grid */
+    width: 350px;  /* Adjust as per your requirement */
+    height: 350px; /* Adjust as per your requirement */
+    /* margin: 0 auto; This will center the scanner if its parent container is flex or grid */
     position: relative;
 }
 
@@ -85,4 +86,113 @@ body, html {
     height: 100%;
     margin: 0; /* Reset default margin */
     overflow: auto; /* This allows the document to scroll */
+}
+
+.action {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-background {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 75%;
+    width: 50%;
+    min-width: 350px;
+    max-width: 500px;
+    background-color: white;
+    color: black;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.uen-input {
+    border: none;
+    margin-right: 10px;
+    border-bottom: 2px solid black;
+}
+
+.uen-input:focus {
+    border: none;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.8)
+}
+
+.uen-input:focus {
+    outline: none;
+    border-bottom: 2px solid rgba(255, 62, 94, 0.8);
+}
+
+.transaction-input{
+    border: none;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.8);
+    width: 75px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.transaction-input:focus {
+    outline: none;
+    border-bottom: 2px solid rgba(255, 62, 94, 0.8);
+}
+
+.transaction-amount-container {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    margin-bottom: 20px;
+}
+
+.send-token-btn {
+    background-color: rgb(255, 62, 95);
+    border: none;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    border-radius: 10px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.send-token-btn:hover {
+    background-color: rgb(218, 36, 67);
+}
+
+.transaction-history-table {
+    margin-bottom: 40px
+}
+
+table, th, td {
+    border: 1px solid white;
+    border-collapse: collapse;
+    margin: 0 20px;
+}
+
+th, td {
+    padding: 10px;
+}
+
+td {
+    word-break: break-all;
+}
+
+.entity-name {
+    word-break: normal;
+    word-wrap: break-word;
 }

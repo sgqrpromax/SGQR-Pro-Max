@@ -3,17 +3,21 @@
 @import url('https://fonts.googleapis.com/css?family=Racing+Sans+One');
 
 .login {
-    background-color: var(--primary-bg);
+    /* background-color: var(--primary-bg); */
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     background-image: url(../../images/Login_BG.png);
     background-size: cover;
     background-position: center center;
     background-repeat: no-replace;
-    
+}
+
+.login-container{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
 }
 
 
@@ -29,6 +33,7 @@
     color: rgb(201, 198, 198);
     /* margin-bottom: 40px; */
     font-family: 'Poppins', sans-serif;
+    width: 50%;
     
 }
 
@@ -38,7 +43,7 @@
 
 .login-projectName{
     text-align: center;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Poppins', sans-serif;
     color: rgb(227, 250, 114);
     font-size: 68px;
     font-weight: bold;
@@ -59,7 +64,14 @@ h2 {
     font-size: 68px;
     color: rgb(176, 211, 71);
     font-family: 'Racing Sans One', sans-serif;
+    margin: 40px;
   }
+
+.new-h2 {
+  font-size: 60px;
+  color: rgb(176, 211, 71);
+  font-family: 'Racing Sans One', sans-serif;
+}
 
 
 h4 {
@@ -75,4 +87,40 @@ h4 {
     to {
       transform: rotate(360deg);
     }
+}
+
+.login-btn {
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 18px;
+  height: 100%;
+  padding: 5px;
+  width: 100px; 
+  text-decoration: underline;
+}
+
+.login-btn:hover {
+  cursor: pointer;
+  color: var(--button-bg);
+  text-decoration: underline;
+  padding: 5px;
+}
+
+@media screen and (max-width: 900px) {
+  /* if the viewport is 900px or smaller */
+  .login-headline{
+    font-size: 50px;
+  }
+
+  .login-projectName{
+    font-size: 60px;
+  }
+
+  .login-author{
+    width: 75%;
+    font-size: 16px;
+  }
 }

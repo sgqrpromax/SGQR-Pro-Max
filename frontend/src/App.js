@@ -11,6 +11,7 @@ import PayToQR from "./components/paytoqr/paytoqr";
 import Merchant from "./components/merchant/merchant";
 import { CONTRACT_ABI, CONTRACT_ADDRESS } from "./contracts/config";
 import { ERC20_ABI} from "./contracts/erc20";
+import PayToQR2 from './components/paytoqr/paytoqr2'; // for testing purposes
 
 export default function App() {
     const [haveMetamask, setHaveMetamask] = useState(true);     // check if the browser has MetaMask installed. 
@@ -73,7 +74,7 @@ export default function App() {
             //setBalance(bal);
             setIsConnected(true);
 
-            navigate('/profile');
+            navigate('/paytoqr');
         }
         catch (error){
             setIsConnected(false);
@@ -126,7 +127,7 @@ export default function App() {
 
     const PayToQRDisplay = () => {
         return (
-            <PayToQR 
+            <PayToQR2 //paytoqr2 used here for testing purposes
                 web3={web3}
                 isConnected = {isConnected}
                 address={address}
