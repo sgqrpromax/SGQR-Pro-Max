@@ -64,7 +64,14 @@ h2 {
     font-size: 68px;
     color: rgb(176, 211, 71);
     font-family: 'Racing Sans One', sans-serif;
+    margin: 40px;
   }
+
+.new-h2 {
+  font-size: 60px;
+  color: rgb(176, 211, 71);
+  font-family: 'Racing Sans One', sans-serif;
+}
 
 
 h4 {

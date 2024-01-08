@@ -1,6 +1,6 @@
 import './login.css';
 import '../../global.css';
-import logo from '../../images/logo.svg';
+import logo from '../../images/logo-icon-no-bg.png';
 
 export default function Login(props){
 
@@ -34,14 +34,12 @@ export default function Login(props){
     return (
         <div className="login">
             <div className='login-container'>
-                <h1>
-                    <span className="login-projectName">SGQR+</span>
-                </h1>
+                <img src={logo} />
 
                 <h2 className="login-headline">Pay with the power of Blockchain</h2>
                 
                 <h3 className="login-author">
-                    SGQR+ is a blockchain-powered digital payment solution that promises instant onboarding, zero downtime, and a seamless payment experience.
+                    SGQR Pro Max is a blockchain-powered digital payment solution that promises instant onboarding, zero downtime, and a seamless payment experience.
                 </h3>
                 
                 
