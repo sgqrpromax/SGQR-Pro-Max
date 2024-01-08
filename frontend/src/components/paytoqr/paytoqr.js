@@ -137,7 +137,6 @@ export default function PayToQR(props) {
             }
         }
     };
-
     const handleError = (err) => {
         console.error("QR Reader Error:", err);
     }
