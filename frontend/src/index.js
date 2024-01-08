@@ -7,7 +7,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const basename = process.env.NODE_ENV === 'development' ? '/' : '/EE4032_Group_2';
+//set this to correct path
+const basename = 'SGQR-Pro-Max/'
+console.log('Public URL:', process.env.PUBLIC_URL);
+console.log('Basename:', basename);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
