@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "./static/css/main.4262e529.css",
-    "main.js": "./static/js/main.00cb0268.js",
-    "static/js/787.6d488f10.chunk.js": "./static/js/787.6d488f10.chunk.js",
-    "static/media/METAMASK.png": "./static/media/METAMASK.3bdeedca06885ed41b32.png",
-    "static/media/Login_BG.png": "./static/media/Login_BG.7776845717757eb7512b.png",
-    "static/media/Profile_BG.png": "./static/media/Profile_BG.9984f2ceaa0af34100f4.png",
-    "static/media/QR_BG.png": "./static/media/QR_BG.852ec13fc304eac89d7e.png",
-    "static/media/History_BG.png": "./static/media/History_BG.d2242be9a974d93122e0.png",
-    "static/media/logo-white-no-bg.png": "./static/media/logo-white-no-bg.8e11ac4fc2407e7b5d1f.png",
-    "index.html": "./index.html",
-    "main.4262e529.css.map": "./static/css/main.4262e529.css.map",
-    "main.00cb0268.js.map": "./static/js/main.00cb0268.js.map",
-    "787.6d488f10.chunk.js.map": "./static/js/787.6d488f10.chunk.js.map"
+    "main.css": "/SGQR-Pro-Max/static/css/main.c7870adb.css",
+    "main.js": "/SGQR-Pro-Max/static/js/main.5e0c0418.js",
+    "static/js/787.6d488f10.chunk.js": "/SGQR-Pro-Max/static/js/787.6d488f10.chunk.js",
+    "static/media/METAMASK.png": "/SGQR-Pro-Max/static/media/METAMASK.3bdeedca06885ed41b32.png",
+    "static/media/Login_BG.png": "/SGQR-Pro-Max/static/media/Login_BG.7776845717757eb7512b.png",
+    "static/media/Profile_BG.png": "/SGQR-Pro-Max/static/media/Profile_BG.9984f2ceaa0af34100f4.png",
+    "static/media/QR_BG.png": "/SGQR-Pro-Max/static/media/QR_BG.852ec13fc304eac89d7e.png",
+    "static/media/History_BG.png": "/SGQR-Pro-Max/static/media/History_BG.d2242be9a974d93122e0.png",
+    "static/media/logo-white-no-bg.png": "/SGQR-Pro-Max/static/media/logo-white-no-bg.8e11ac4fc2407e7b5d1f.png",
+    "index.html": "/SGQR-Pro-Max/index.html",
+    "main.c7870adb.css.map": "/SGQR-Pro-Max/static/css/main.c7870adb.css.map",
+    "main.5e0c0418.js.map": "/SGQR-Pro-Max/static/js/main.5e0c0418.js.map",
+    "787.6d488f10.chunk.js.map": "/SGQR-Pro-Max/static/js/787.6d488f10.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4262e529.css",
-    "static/js/main.00cb0268.js"
+    "static/css/main.c7870adb.css",
+    "static/js/main.5e0c0418.js"
   ]
 }
