@@ -1,5 +1,24 @@
-# UEN Grabber
-This script is meant to grab the UEN from [data.gov.sg](data.gov.sg). The parsed files are in the full_uen_filtered_list folder and was parsed as of 24 Oct 2023. Solidity is managed and compiled with [ape](https://docs.apeworx.io/ape/stable/userguides/quickstart.html).
+# Overview
+The backend contains a few components. They are listed and explained here.
+1. Python script
+1. Contracts (Sepolia)
+1. Contracts (XRPL EVM)
+
+## Overview
+There are several Python scripts written. They are designed to grab UEN data from govtech and also to upload these UEN to the blockchain. 
+
+There are 3 main contracts. 
+1. uen_management.sol contains the list of UEN as well as their names. This is the primary UEN database that exists on the blockchain.
+1. whitelist.sol contains the onboarded merchant (UEN) and their wallet address. 
+1. sgdm.sol is the primary contract enabling transactions to the QR code. It is an ERC20 compliant contract that merchants can add to their wallet applications. 
+
+There are 2 helper contracts.
+1. admin.sol governs the admins that can manage each contract. This should be deprecated and replaced by the OpenZeppelin's permissions library. 
+1. sgdk.sol is a testing stablecoin that should be replaced by an actual stablecoin. 
+
+# Script
+The UEN script is meant to grab the UEN from [data.gov.sg](data.gov.sg). The parsed files are in the full_uen_filtered_list folder and was parsed as of 24 Oct 2023. Solidity is managed and compiled with [ape](https://docs.apeworx.io/ape/stable/userguides/quickstart.html).
+
 ## How to run 
 1. Install [Python Poetry](https://python-poetry.org/)
 1. Poetry is the package manager. Install this to manage the virtual environment effortlessly. :D
@@ -20,12 +39,9 @@ Alternatively, get the help: `ape run deloy --help`
 1. Check if local UEN and UEN data on smart contract is the same.
 1. If not, iteratively update the smart contract with missing UENs and their names. Due to gas limit, a limit can be specified with `--limit`. It will try it's best to upload as many data objects at once. 
 
-#### uen_management class
-##### TODO: Add more info here
-
-## Contract management
-### Zeenus ERC20 token address
-`0xe9EF74A6568E9f0e42a587C9363C9BcC582dcC6c`
+## Contract (Sepolia)
+### SGDk ERC20 address
+`0x3C50e0849cba0dE6deb6Ecd627531eC0a5F828e4`
 
 ### Contract addresses
 * UEN Management: `0x716C0352dC387873c1022317987b4C942Bef11f9`
@@ -35,18 +51,18 @@ Alternatively, get the help: `ape run deloy --help`
 
 | UEN | Address |
 | ----------- | ----------- |
-| `00467500B` | `0x1A75299144c901654720cF005f1383eB74Ba9b2a` | 
+| `00467500B` | `0x1A75299144c901654720cF005f1383eB74Ba9b2a`  | 
 | `202323489D` | `0x94DECA7D44af312256e88891c9fcdF40D61CA918` | `AGZ FOOD PTE LTD` |
 | `198402065R` | `0x7cc710c5Ff87aE5b561913f409b491FE2FDc9CE4` | `WATCHES` |
 
-* Bank: `0x23ed1f054F5fb7e8b6d72735AF562D8942582619`
-  * Bank admin management: `0x09456c18c826b1204c33FA7f3aeEEF7fF43660E1`
+* SGDm: `0x23ed1f054F5fb7e8b6d72735AF562D8942582619`
+  * SGDm admin management: `0x09456c18c826b1204c33FA7f3aeEEF7fF43660E1`
 
-Bank deployment inputs:
-`"0xe9EF74A6568E9f0e42a587C9363C9BcC582dcC6c", "0x716C0352dC387873c1022317987b4C942Bef11f9", "0x09456c18c826b1204c33FA7f3aeEEF7fF43660E1", "0xADEc60da0d50caD4C1153f3f6522B94e779ea74f"`
+SGDm deployment inputs:
+`"0x3C50e0849cba0dE6deb6Ecd627531eC0a5F828e4", "0x716C0352dC387873c1022317987b4C942Bef11f9", "0x09456c18c826b1204c33FA7f3aeEEF7fF43660E1", "0xADEc60da0d50caD4C1153f3f6522B94e779ea74f"`
 
-## Contract constructors
-### bank.sol
+## Contract constructors (under construction)
+### sgdm.sol
 * Get name of UEN
   * `function get_name(string memory _uen) external view returns (string memory);`
   * function: get_name
@@ -58,16 +74,16 @@ Bank deployment inputs:
   * function: check_whitelist()
   * output: string uen, blank if not a whitelist
 
-* Check allowance of ZEENUS token
+* Check allowance of SGDk token
   * `function check_allowance() public view returns (uint256);`
   * function: check_allowance
   * output: allowance of ZEENUS token
 
-* Get ZEENUS token address
+* Get SGDk token address
   * `function token_address() external view returns (address);`
   * Call this to get the address of the ZEENUS token (XSGD/USDC/stablecoin)
 
-* Request for allowance of ZEENUS token. This enables you to pay to this contract. This requires gas.
+* Request for allowance of SGDk token. This enables you to pay to this contract. This requires gas.
   * `function approve_token(uint256 _amount) public returns (bool);`
   * function: approve_token
   * input: uint256 amount
