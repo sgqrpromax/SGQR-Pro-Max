@@ -15,18 +15,23 @@ export const TopbarColor = '#61dafb';
 export const GlobalToolBar = () => {
     return (
         <div className = "global-toolbar">
-            {/* <Link to="/" className="global-btn">SGQR+</Link> Adjusted to root path */}
             <Link to="/profile" className="global-btn">
-                <BiSolidWallet size={30} style={{paddingBottom: "5px"}}/>
-                Profile    
+                <div className="toolbar-btn">
+                    <BiSolidWallet size={30} style={{paddingBottom: "5px"}}/>
+                    Profile    
+                </div>
             </Link> {/* Adjusted to relative path */}
             <Link to="/paytoqr" className="global-btn">
-                <BsQrCodeScan size={30} style={{paddingBottom: "5px"}}/>
-                Pay To QR
+                <div className="toolbar-btn">
+                    <BsQrCodeScan size={30} style={{paddingBottom: "5px"}}/>
+                    Pay To QR
+                </div>
             </Link> {/* Adjusted to relative path */}
             <Link to="/merchant" className="global-btn">
-                <GiReceiveMoney size={30} style={{paddingBottom: "5px"}}/>
-                Merchant   
+                <div className="toolbar-btn">
+                    <GiReceiveMoney size={30} style={{paddingBottom: "5px"}}/>
+                    Merchant   
+                </div>
             </Link> {/* Adjusted to relative path */}
         </div>
     )

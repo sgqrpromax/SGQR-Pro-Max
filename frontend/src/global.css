@@ -42,9 +42,10 @@ body {
     text-decoration: underline;
 }
 
-.global-btn:hover {
+.toolbar-btn:hover {
     background-color: var(--button-border);
     cursor: pointer;
+    color: white;
 }
 
 /* .global-footer {
@@ -56,18 +57,21 @@ body {
 } */
 
 .global-btn {
-    /* background-color: var(--button-bg); */
-    border-radius: 5px;
+    font-size: 11px;
+    height: 100%;
+    width: 100px; 
+    color: var(--button-bg);
+}
+
+.toolbar-btn {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    font-size: 11px;
-    /* transition: background-color 0.3s; */
-    /* border: 1px solid #4FAFC4; */
-    /* color: #20232A; */
+    color: var(--button-bg);
     height: 100%;
-    width: 100px; 
+    width: 100%;
+    border-radius: 5px;
 }
 
 .global-toolbar {
