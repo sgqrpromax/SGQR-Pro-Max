@@ -1,4 +1,5 @@
 # Others
+backend/.deps/
 .DS_Store
 .vscode
 H02.sol
