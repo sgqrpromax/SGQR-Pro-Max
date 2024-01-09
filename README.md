@@ -5,22 +5,18 @@ Project report link *insert report here*
 New stablecoin created: SGDk (k for constant)
 
 ## Layout of repo
-1. Front end
-1. Smart contract backend
+1. frontend
+1. backend (to be deprecated)
 
 ## Front end
-Insert front end stuff here. 
+*Insert front end stuff here.*
 
 ## Smart contract backend overview
-
 The smart contract backend contains 2 portions, one for the XRP EVM Side chain, and another one for the XRPL Main chain. They're described in details below.
 
-The smart contracts are developed with [ape](https://docs.apeworx.io/ape/stable/userguides/quickstart.html). 
-
-More details are found in the backend README.md. 
+The smart contracts are developed with [foundry](https://github.com/foundry-rs/foundry).
 
 ### XRPL Main Chain
-
 The XRPL main chain will be used to swap stablecoins for SGDk. The SGDk will then be bridged to the EVM side chain. The reason for using the main chain for holding and swapping for SGDk is explained as follows. 
 
 #### Security
@@ -32,7 +28,6 @@ As the main chain has many FIs who are involved in the chain, there is a large a
 In general, the main chain could be seen as the "DBS app", which is the primary "vault" holding all the cash. Meanwhile, the EVM chain can be seen as the "e-wallet" holding a small amount of SGDk for daily transactions and use. 
 
 ### EVM side chain
-
 The EVM side chain will hold all the smart contract backend, enabling payment processing for everyone in Singapore. 
 
 #### SGDm
