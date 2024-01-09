@@ -17,6 +17,7 @@ export default function PayToQR2(props) {
     const [approvalAmount, setApprovalAmount] = useState(''); // State for storing the approval amount
     const [isPopup, setIsPopup] = useState(false) // toggle popup on and off
     const [isDoneScanning, setIsDoneScanning] = useState(false) // toggle confirmation page on and off
+    const [allowance, setAllowance] = useState(0)
     const [transactions, setTransactions] = useState(() => {
         // Get transactions from local storage if available
         const savedTransactions = localStorage.getItem('transactions');
@@ -24,12 +25,29 @@ export default function PayToQR2(props) {
       });
 
     useEffect(() => {
-    // Save transactions to local storage
-    localStorage.setItem('transactions', JSON.stringify(transactions));
+        // Save transactions to local storage
+        localStorage.setItem('transactions', JSON.stringify(transactions));
     }, [transactions]);  
 
+    
     const contract = props.contract; // Assume the contract prop is passed correctly
     const address = props.address; // The user's address should also be passed in props
+    
+    useEffect(() => {
+        console.log(props)
+        const fetchAllowance = async () => {
+            try {
+                // Assuming contract is available in your component's context
+                const allowanceValue = await contract.methods.check_allowance(address).call();
+                setAllowance(allowanceValue);
+            } catch (error) {
+                console.error("Error fetching allowance:", error);
+                // Handle the error appropriately
+            }
+        };
+
+        fetchAllowance();
+    }, [props.address])
 
     const retrieveZeenusTokenAddress = async () => {
         try {
@@ -171,7 +189,7 @@ export default function PayToQR2(props) {
             <div className='form-group'>
             {/* <div style={{fontSize: '30px', marginBottom:'20px'}}>Transfer Limit</div> */}
             <div className='new-h2'>Transfer Limit</div>
-            <div style={{fontSize: '60px'}}>24 <span style={{fontSize: '30px'}}>ZEENUS</span></div>
+            <div style={{fontSize: '60px'}}>{allowance} <span style={{fontSize: '30px'}}>ZEENUS</span></div>
                 <div className="action">
                     <p className="action-description">Increase your limit by approving more ZEENUS tokens!</p>
                     <div className='withdraw-form-component'>
