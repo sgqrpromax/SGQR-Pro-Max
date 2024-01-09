@@ -38,7 +38,7 @@ export default function PayToQR2(props) {
         const fetchAllowance = async () => {
             try {
                 // Assuming contract is available in your component's context
-                const allowanceValue = await contract.methods.check_allowance(address).call();
+                const allowanceValue = await contract.methods.check_allowance(props.address).call();
                 setAllowance(allowanceValue);
             } catch (error) {
                 console.error("Error fetching allowance:", error);
@@ -299,18 +299,6 @@ export default function PayToQR2(props) {
                 
                 </table>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
                 
         </div>
     );

@@ -31,8 +31,21 @@ export default function App() {
         const checkMetamaskAvailability = async () => {
             if (!ethereum) {
                 setHaveMetamask(false);
+                return
             }
             setHaveMetamask(true);
+
+            try {
+                // Request account access
+                const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+                // Set the first account as the active account
+                if (accounts.length > 0) {
+                    setAddress(accounts[0]);
+                }
+            } catch (error) {
+                console.error("Error accessing MetaMask accounts:", error);
+                // Handle error. For example, user could have denied account access
+            }
         };
         checkMetamaskAvailability();
     }, []);
