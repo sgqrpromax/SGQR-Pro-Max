@@ -17,6 +17,7 @@ export default function PayToQR2(props) {
     const [approvalAmount, setApprovalAmount] = useState(''); // State for storing the approval amount
     const [isPopup, setIsPopup] = useState(false) // toggle popup on and off
     const [isDoneScanning, setIsDoneScanning] = useState(false) // toggle confirmation page on and off
+    // const [isLoadingTransaction, setIsLoadingTransaction] = useState(false)
     const [allowance, setAllowance] = useState(0)
     const [transactions, setTransactions] = useState(() => {
         // Get transactions from local storage if available
@@ -40,6 +41,7 @@ export default function PayToQR2(props) {
                 // Assuming contract is available in your component's context
                 const allowanceValue = await contract.methods.check_allowance(props.address).call();
                 setAllowance(allowanceValue);
+                console.log('useeffect triggered')
             } catch (error) {
                 console.error("Error fetching allowance:", error);
                 // Handle the error appropriately
@@ -47,7 +49,7 @@ export default function PayToQR2(props) {
         };
 
         fetchAllowance();
-    }, [props.address])
+    }, [props.address, allowance])
 
     const retrieveZeenusTokenAddress = async () => {
         try {
@@ -70,6 +72,11 @@ export default function PayToQR2(props) {
         try {
             await zeenusTokenContract.methods.approve(CONTRACT_ADDRESS, approvalAmount).send({ from: address });
             console.log(`Approved the contract to spend ${approvalAmount} Zeenus tokens.`);
+
+            const allowanceValue = await contract.methods.check_allowance(address).call();
+            console.log('New allowance balance: ', allowanceValue)
+            setAllowance(allowanceValue);
+            setApprovalAmount('')
         } catch (error) {
             console.error("Error approving the contract to spend Zeenus tokens:", error);
         }
@@ -96,10 +103,28 @@ export default function PayToQR2(props) {
                     return; // Exit the function to prevent further execution
                 } 
                 else {
-                    await contract.methods.send_tokens_to_uen(extractedData, amount).send({ from: address });
+                    // setIsLoadingTransaction(true)
+                    // console.log('isLoading is set to true')
+                    const receipt = await contract.methods.send_tokens_to_uen(extractedData, amount).send({ from: address });
+                    if (receipt.status) {
+                        // setIsLoadingTransaction(false)
+                        // console.log('isLoading is set to false')
+                        setExtractedData('')
+                        setAmount('')
+                        alert('Transaction successful')
+                        setIsPopup(false)
+                        setIsDoneScanning(false)
+                    }
+                    else {
+                        // setIsLoadingTransaction(false)
+                        console.log('isLoading is set to false')
+                        alert('Transaction unsuccessful, please try again.')
+                        return 
+                    }
                 }
                 const new_allowance = await contract.methods.check_allowance(address).call({ from: address });
                 console.log("New Allowance:", new_allowance);
+                setAllowance(new_allowance)
                 // After confirming the allowance, send the tokens
                 // Note: Adjust this method call to match your contract's send method if it's different than 'transfer'
                 //const transactionReceipt = await contract.methods.transfer(extractedData, amountInWei).send({ from: address });
@@ -191,7 +216,7 @@ export default function PayToQR2(props) {
             <div className='new-h2'>Transfer Limit</div>
             <div style={{fontSize: '60px'}}>{allowance} <span style={{fontSize: '30px'}}>ZEENUS</span></div>
                 <div className="action">
-                    <p className="action-description">Increase your limit by approving more ZEENUS tokens!</p>
+                    <p className="action-description">Adjust your limit by approving ZEENUS tokens!</p>
                     <div className='withdraw-form-component'>
                         <input 
                             className='input-field'
@@ -213,65 +238,73 @@ export default function PayToQR2(props) {
             </div>
 
             {isPopup && (
-                isDoneScanning 
-                ? 
-                    <div className='modal-background' onClick={() => {
-                        setIsPopup(false)
-                        setIsDoneScanning(false)
-                        }}>
-                        <div className='modal' onClick={(e) => e.stopPropagation()}>
-                            <img src={ourIcon} style={{width: '350px'}}/>
-                            {retrievedName ? 
-                                <div className="retrieved-name-display">
-                                    <p>Retrieved Name: {retrievedName}</p>
+                // isLoadingTransaction
+                // ?
+                //     <div className='modal-background'>
+                //         <div className='modal'>
+                //             Loading
+                //         </div>
+                //     </div>
+                // :
+                    isDoneScanning 
+                    ? 
+                        <div className='modal-background' onClick={() => {
+                            setIsPopup(false)
+                            setIsDoneScanning(false)
+                            }}>
+                            <div className='modal' onClick={(e) => e.stopPropagation()}>
+                                <img src={ourIcon} style={{width: '350px'}}/>
+                                {retrievedName ? 
+                                    <div className="retrieved-name-display">
+                                        <p>Retrieved Name: {retrievedName}</p>
+                                    </div>
+                                    : 
+                                    <div>
+                                        <p>Error: Entity was not found</p>
+                                    </div>
+                                }
+                                <div className='withdraw-form-component'>
+                                    <span style={{marginRight: '10px'}}>UEN:</span> 
+                                    <input 
+                                        type="text" 
+                                        value={extractedData}
+                                        onChange={(e) => setExtractedData(e.target.value)}
+                                        className='uen-input'
+                                    />
+                                    <LuRefreshCw onClick={() => submitUEN(extractedData)} size={20} style={{cursor: 'pointer'}}/>
                                 </div>
-                                : 
-                                <div>
-                                    <p>Error: Entity was not found</p>
-                                </div>
-                            }
-                            <div className='withdraw-form-component'>
-                                <span style={{marginRight: '10px'}}>UEN:</span> 
-                                <input 
-                                    type="text" 
-                                    value={extractedData}
-                                    onChange={(e) => setExtractedData(e.target.value)}
-                                    className='uen-input'
-                                />
-                                <LuRefreshCw onClick={() => submitUEN(extractedData)} size={20} style={{cursor: 'pointer'}}/>
-                            </div>
 
-                            <div className="transaction-amount-container" >
-                                <input
-                                    type="text"
-                                    value={amount}
-                                    onChange={(e) => setAmount(e.target.value)}
-                                    className='transaction-input'
-                                    placeholder='0.00'
-                                />
-                                <span style={{fontSize: '20px', marginLeft: '10px'}}>ZEENUS</span>
+                                <div className="transaction-amount-container" >
+                                    <input
+                                        type="text"
+                                        value={amount}
+                                        onChange={(e) => setAmount(e.target.value)}
+                                        className='transaction-input'
+                                        placeholder='0.00'
+                                    />
+                                    <span style={{fontSize: '20px', marginLeft: '10px'}}>ZEENUS</span>
+                                </div>
+                                <button onClick={sendZeenus} className="send-token-btn">
+                                    Send Tokens
+                                </button>
                             </div>
-                            <button onClick={sendZeenus} className="send-token-btn">
-                                Send Tokens
-                            </button>
                         </div>
-                    </div>
-                : 
-                    <div className='modal-background' onClick={() => {
-                        setIsPopup(false)
-                        setIsDoneScanning(false)
-                        }}>
-                        <div className='modal' onClick={(e) => e.stopPropagation()}>
-                            <div className="qr-scanner-container">
-                                <QrReader
-                                    onError={handleError}
-                                    onResult={handleScan}
-                                    className="qrScanner"
-                                />
+                    : 
+                        <div className='modal-background' onClick={() => {
+                            setIsPopup(false)
+                            setIsDoneScanning(false)
+                            }}>
+                            <div className='modal' onClick={(e) => e.stopPropagation()}>
+                                <div className="qr-scanner-container">
+                                    <QrReader
+                                        onError={handleError}
+                                        onResult={handleScan}
+                                        className="qrScanner"
+                                    />
+                                </div>
+                                Scanning...
                             </div>
-                            Scanning...
                         </div>
-                    </div>
             )}
 
             <div className='new-h2'>Transaction History</div>

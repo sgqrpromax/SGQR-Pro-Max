@@ -25,11 +25,19 @@ export default function Merchant({ contract, isConnected, web3, address }) {
             // No need to convert amount as Zeenus uses its own denomination
             const success = await contract.methods.transfer(payeeAddressTmp, transferAmountTmp).send({ from: payeeAddress });
             if (success) {
-                setTransferResult('Transfer successful');
+                alert("Transfer successful!")
+            }
+
+            if (payeeAddressRef.current) {
+                payeeAddressRef.current.value = '';
+            }
+    
+            if (transferAmountRef.current) {
+                transferAmountRef.current.value = '';
             }
         } catch (error) {
             console.error("Transfer failed:", error);
-            setTransferResult('Transfer failed');
+            alert("Transfer failed!")
         }
     };
 
@@ -48,60 +56,6 @@ export default function Merchant({ contract, isConnected, web3, address }) {
 
     const MerchantPage = () => {
         return (
-            // <div className="merchant-background">
-            //     <div className="merchant">
-            //         <h2>Merchant Dashboard</h2>
-                    
-            //         {/* Form for transferring Zeenus tokens */}
-            //         <form onSubmit={handleTransfer} className="merchant-form">
-            //             <div className="form-group">
-            //                 <label htmlFor="payeeAddress">Withdraw to Address:</label>
-            //                 <input
-            //                     type="text"
-            //                     id="payeeAddress"
-            //                     value={payeeAddress}
-            //                     onChange={(e) => setPayeeAddress(e.target.value)}
-            //                     placeholder="Enter payee address"
-            //                 />
-            //                 <input
-            //                     type="text"
-            //                     value={transferAmount}
-            //                     onChange={(e) => setTransferAmount(e.target.value)}
-            //                     placeholder="Enter amount to transfer"
-            //                 />
-            //                 <button type="submit">Transfer</button>
-            //             </div>
-            //         </form>
-
-            //         {/* Result of transfer attempt */}
-            //         {transferResult && <p>{transferResult}</p>}
-
-            //         {/* Form for checking UEN balance */}
-            //         <form onSubmit={checkUENBalance} className="merchant-form">
-            //             <div className="form-group">
-            //                 <label htmlFor="uenToCheck">Check Balance for your UEN:</label>
-            //                 <input
-            //                     type="text"
-            //                     id="uenToCheck"
-            //                     value={balanceUEN}
-            //                     onChange={(e) => setBalanceUEN(e.target.value)}
-            //                     placeholder="Enter UEN"
-            //                 />
-            //                 <button type="submit">Check Balance</button>
-            //             </div>
-            //         </form>
-
-            //         {/* Display the balance of a UEN */}
-            //         {uenBalance !== '' && (
-            //             <div className="balance-display">
-            //                 <p>Balance for UEN {balanceUEN}: {uenBalance}</p>
-            //             </div>
-            //         )}
-
-            //     </div>
-
-            //     <GlobalToolBar/>
-            // </div>
             <div className="merchant-background">
                 <div className="merchant">
                     <h2 style={{margin: '20px'}}>Merchant Dashboard</h2>
@@ -130,8 +84,8 @@ export default function Merchant({ contract, isConnected, web3, address }) {
                         <button type="submit" className='merchant-btn'>Transfer Now</button>
                     </form>
 
-                    {/* Result of transfer attempt */}
-                    {transferResult && <p>{transferResult}</p>}
+                    {/* Result of transfer attempt
+                    {transferResult && <p>{transferResult}</p>} */}
 
                     {/* Form for checking UEN balance */}
                     <form onSubmit={checkUENBalance} className="form-group">
@@ -144,15 +98,13 @@ export default function Merchant({ contract, isConnected, web3, address }) {
                                 placeholder="Enter UEN"
                             />
                         </div>
+                        {uenBalance !== '' && (
+                            <div className="balance-display">
+                                <p>Balance for UEN {balanceUEN}: {uenBalance}</p>
+                            </div>
+                        )}
                         <button type="submit" className='merchant-btn'>Check Balance</button>
                     </form>
-
-                    {/* Display the balance of a UEN */}
-                    {uenBalance !== '' && (
-                        <div className="balance-display">
-                            <p>Balance for UEN {balanceUEN}: {uenBalance}</p>
-                        </div>
-                    )}
 
                 </div>
 
