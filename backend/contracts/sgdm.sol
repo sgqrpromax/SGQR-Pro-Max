@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: Proprietary
 pragma solidity 0.8.22;
 
-import "@openzeppelin/token/ERC20/ERC20.sol";
-// import "
+// import "@openzeppelin/token/ERC20/ERC20.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol";
 
-import "@openzeppelin/token/ERC20/IERC20.sol";
-// import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol";
+// import "@openzeppelin/token/ERC20/IERC20.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol";
 
 interface Iwhitelist {
 	/* 
@@ -34,11 +34,6 @@ interface Iadmin_management {
 }
 
 contract sgdm is ERC20 {
-	/*
-	
-
-
-	*/
 
 	// Contains the ERC20 target token address. This has to be an ERC20. 
 	IERC20 public targetToken;
@@ -113,11 +108,6 @@ contract sgdm is ERC20 {
 		return whitelist_contract.get_whitelist_to_uen(msg.sender);
 	}
 
-	// Check ERC20 allowance
-	function check_allowance(address _address) external view returns (uint256) {
-		return targetToken.allowance(_address, address(this));
-	}
-
 	// Balance of UEN
 	function balance_of_uen(string memory _uen) external view returns (uint256) {
 		return uen_to_balance[_uen];
@@ -180,11 +170,25 @@ contract sgdm is ERC20 {
 		require(_to != address(0), "Transfer to zero address");
 		string memory _uen_sender = whitelist_contract.get_whitelist_to_uen(msg.sender);
 		
-		uint256 _balance = uen_to_balance[_uen_sender]
+		uint256 _balance = uen_to_balance[_uen_sender];
 		require (_balance >= _amount, "Not enough balance");
 		
 		uen_to_balance[_uen_sender] -= _amount;
 		emit Transfer(msg.sender, _to, _amount);
+		targetToken.transfer(_to, _amount);
+		return true;
+	}
+
+	// Transfer from, this is an internal transfer function.
+	function transferFrom(address _from, address _to, uint256 _amount) public override returns (bool) {
+		require(_to != address(0), "Transfer to zero address");
+		string memory _uen_sender = whitelist_contract.get_whitelist_to_uen(_from);
+		
+		uint256 _balance = uen_to_balance[_uen_sender];
+		require (_balance >= _amount, "Not enough balance");
+		
+		uen_to_balance[_uen_sender] -= _amount;
+		emit Transfer(_from, _to, _amount);
 		targetToken.transfer(_to, _amount);
 		return true;
 	}
@@ -195,7 +199,7 @@ contract sgdm is ERC20 {
 	}
 
 	// Decimals
-	function decimals() public view override returns (uint8) {
+	function decimals() public pure override returns (uint8) {
 		return 6;
 	}
 
@@ -212,14 +216,12 @@ contract sgdm is ERC20 {
 	}
 
 	// Function for allowance. This should return the allowance for token.
-	function allowance(address _owner, address _spender) external view override returns (uint256) {
-		uint256 memory _amount = targetToken.allowance(_owner, _spender);
-		return _amount;
+	function allowance(address _owner, address _spender) public view override returns (uint256) {
+		return targetToken.allowance(_owner, _spender);
 	}
 
-	// Function for approval. This should approve the spender to spend the amount of tokens.
-	function approve(address _spender, uint256 _amount) external override returns (bool) {
-		targetToken.approve(_spender, _amount);
-		return true;
+	// Function for approval. This always return false to prevent anyone from using sgdm.
+	function approve(address, uint256) public pure override returns (bool) {
+    	revert("Approve function is disabled");
 	}
 }
