@@ -6,6 +6,7 @@ backend/contracts/.deps/
 H02.sol
 IERC20.sol
 artifacts
+script
 
 # Ape stuff
 .cache
