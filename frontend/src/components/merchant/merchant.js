@@ -15,31 +15,51 @@ export default function Merchant({ contract, isConnected, web3, address }) {
     const transferAmountRef = useRef('')
     const uenBalanceRef = useRef('')
 
+    // const handleTransfer = async (event) => {
+    //     event.preventDefault();
+    //     setPayeeAddress(payeeAddressRef.current.value)
+    //     setTransferAmount(transferAmountRef.current.value)
+    //     const payeeAddressTmp = payeeAddressRef.current.value
+    //     const transferAmountTmp = transferAmountRef.current.value
+    //     try {
+    //         console.log(payeeAddressTmp, transferAmountTmp*1000000)
+    //         const success = await contract.methods.transfer(payeeAddressTmp, transferAmountTmp*1000000).send({ from: payeeAddress });            
+    //         if (success) {
+    //             alert("Transfer successful!")
+    //         }
+
+    //         if (payeeAddressRef.current) {
+    //             payeeAddressRef.current.value = '';
+    //         }
+    
+    //         if (transferAmountRef.current) {
+    //             transferAmountRef.current.value = '';
+    //         }
+    //     } catch (error) {
+    //         console.error("Transfer failed:", error);
+    //         alert("Transfer failed!")
+    //     }
+    // };
+
     const handleTransfer = async (event) => {
         event.preventDefault();
-        setPayeeAddress(payeeAddressRef.current.value)
-        setTransferAmount(transferAmountRef.current.value)
-        const payeeAddressTmp = payeeAddressRef.current.value
-        const transferAmountTmp = transferAmountRef.current.value
+        const payeeAddressTmp = payeeAddressRef.current.value;
+        const transferAmountTmp = transferAmountRef.current.value;
         try {
-            // No need to convert amount as Zeenus uses its own denomination
-            const success = await contract.methods.transfer(payeeAddressTmp, transferAmountTmp).send({ from: payeeAddress });
+            console.log(payeeAddressTmp, transferAmountTmp * 1000000);
+            const success = await contract.methods.transfer(payeeAddressTmp, transferAmountTmp * 1000000).send({ from: address });
             if (success) {
-                alert("Transfer successful!")
-            }
-
-            if (payeeAddressRef.current) {
-                payeeAddressRef.current.value = '';
+                alert("Transfer successful!");
             }
     
-            if (transferAmountRef.current) {
-                transferAmountRef.current.value = '';
-            }
+            payeeAddressRef.current.value = '';
+            transferAmountRef.current.value = '';
         } catch (error) {
             console.error("Transfer failed:", error);
-            alert("Transfer failed!")
+            alert("Transfer failed!");
         }
     };
+    
 
     const checkUENBalance = async (event) => {
         event.preventDefault();
@@ -47,7 +67,7 @@ export default function Merchant({ contract, isConnected, web3, address }) {
         const balanceUENTmp = uenBalanceRef.current.value
         try {
             const balance = await contract.methods.balance_of_uen(balanceUENTmp).call();
-            setUenBalance(balance); // Assuming Zeenus uses a denomination that doesn't require conversion
+            setUenBalance(balance); // Assuming SGDk uses a denomination that doesn't require conversion
         } catch (error) {
             console.error("Failed to get UEN balance:", error);
             setUenBalance('Error fetching balance');
@@ -60,7 +80,7 @@ export default function Merchant({ contract, isConnected, web3, address }) {
                 <div className="merchant">
                     <h2 style={{margin: '20px'}}>Merchant Dashboard</h2>
                     
-                    {/* Form for transferring Zeenus tokens */}
+                    {/* Form for transferring SGDk tokens */}
                     <form onSubmit={handleTransfer} className="form-group" style={{marginBottom: '40px'}}>
                         <div style={{fontSize: '30px', marginBottom:'20px'}}>Withdrawal</div>
                         <div className='withdraw-form-component'>
@@ -78,7 +98,7 @@ export default function Merchant({ contract, isConnected, web3, address }) {
                                 className='input-field'
                                 type="text"
                                 ref={transferAmountRef}
-                                placeholder="e.g. 0.25 ZEENUS"
+                                placeholder="e.g. 0.25 SGDk"
                             />
                         </div>
                         <button type="submit" className='merchant-btn'>Transfer Now</button>
@@ -100,7 +120,7 @@ export default function Merchant({ contract, isConnected, web3, address }) {
                         </div>
                         {uenBalance !== '' && (
                             <div className="balance-display">
-                                <p>Balance for UEN {balanceUEN}: {uenBalance}</p>
+                                <p>Balance for UEN {balanceUEN}: {uenBalance/1000000} SGDk</p>
                             </div>
                         )}
                         <button type="submit" className='merchant-btn'>Check Balance</button>

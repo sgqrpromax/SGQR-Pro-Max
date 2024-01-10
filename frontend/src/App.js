@@ -67,8 +67,7 @@ export default function App() {
             let bal = ethers.utils.formatEther(balanceVal);
 
             // Since ERC-20 tokens can have different decimals, you need to format the balance
-            // If the Zeenus token has 18 decimals, you can use the following to format it
-            //let formattedZeenusBalance = ethers.utils.formatUnits(zeenusBalance, 18); // Replace '18' with the actual token decimals if different
+            //let formattedSGDkBalance = ethers.utils.formatUnits(SGDkBalance, 6); // Replace '18' with the actual token decimals if different
 
             console.log(chainId);
             if (chainId === '0x3'){
@@ -97,27 +96,27 @@ export default function App() {
 
     useEffect(() => {
         // A function to fetch UENs which handles its own errors internally.
-        const fetchZeenusBalance = async () => {
+        const fetchSGDkBalance = async () => {
           try {
-            // Assume you have the Zeenus token contract ABI and address
+            // Assume you have the SGDk token contract ABI and address
             const tokenAddress = await contract.methods.token_address().call();
-            const zeenusTokenContract = new web3.eth.Contract(ERC20_ABI, tokenAddress);
+            const SGDkTokenContract = new web3.eth.Contract(ERC20_ABI, tokenAddress);
 
             console.log("test: ", address);
 
-            // // Fetch the Zeenus token balance for the connected address
-            const zeenusBalance = await zeenusTokenContract.methods.balanceOf(address).call();
-            console.log("balance: ", zeenusBalance);
+            // // Fetch the SGDk token balance for the connected address
+            const SGDkBalance = await SGDkTokenContract.methods.balanceOf(address).call();
+            console.log("balance: ", SGDkBalance);
 
-            setBalance(zeenusBalance);
+            setBalance(SGDkBalance);
           } catch (error) {
-            console.error("Error fetching ZEENUS Balance:", error);
+            console.error("Error fetching SGDk Balance:", error);
             // Handle the error state in the UI as needed...
           }
         };
 
         if (isConnected && ethereum) {
-            fetchZeenusBalance(); // Only fetch UENs if connected and ethereum object is available
+            fetchSGDkBalance(); // Only fetch UENs if connected and ethereum object is available
         }
       }, [isConnected, ethereum]); // Depend on isConnected and ethereum to refetch when they change
 
