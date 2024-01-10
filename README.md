@@ -31,10 +31,12 @@ The merchant just needs to key in their wallet address as well as the amount of 
 
 Merchants can also check their SGDk token balance based on the UEN.
 
-## Smart contract backend overview
+### Smart contract backend overview
 The smart contract backend contains 2 portions, one for the XRP EVM Side chain, and another one for the XRPL Main chain. They're described in details below.
 
 The smart contracts are developed with [foundry](https://github.com/foundry-rs/foundry).
+
+## Backend
 
 ### XRPL Main Chain
 The XRPL main chain will be used to swap stablecoins for SGDk. The SGDk will then be bridged to the EVM side chain. The reason for using the main chain for holding and swapping for SGDk is explained as follows. 
