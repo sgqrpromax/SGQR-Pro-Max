@@ -114,6 +114,21 @@ export default function PayToQR2(props) {
                         alert('Transaction successful')
                         setIsPopup(false)
                         setIsDoneScanning(false)
+
+                        const currentTimeStamp = new Date()
+                        const formattedDate = currentTimeStamp.toLocaleDateString(); // e.g., 'MM/DD/YYYY'
+                        const formattedTime = currentTimeStamp.toLocaleTimeString(); // e.g., 'HH:MM:SS AM/PM'
+
+                        setTransactions(prevTransactions => [
+                            ...prevTransactions,
+                            {
+                                senderAddress: address,
+                                recipientUEN: extractedData,
+                                recipientName: retrievedName,
+                                amountTransferred: amount,
+                                timeStamp: `${formattedDate} ${formattedTime}`
+                            }
+                        ]);
                     }
                     else {
                         // setIsLoadingTransaction(false)
@@ -131,15 +146,7 @@ export default function PayToQR2(props) {
 
                 //submitUEN();
 
-                setTransactions(prevTransactions => [
-                    ...prevTransactions,
-                    {
-                        senderAddress: address,
-                        recipientUEN: extractedData,
-                        recipientName: retrievedName,
-                        amountTransferred: amount
-                    }
-                ]);
+                
                 console.log("SGDk sent successfully to UEN:", extractedData);
             } catch (error) {
                 console.error("Error sending SGDk:", error);
@@ -316,15 +323,17 @@ export default function PayToQR2(props) {
                     <th>Entity Name</th>
                     <th>UEN</th>
                     <th>Amount</th>
+                    <th>Time</th>
                     </tr>
                 </thead>
                 <tbody>
                     {transactions.map((transaction, index) => (
                     <tr key={index}>
-                        <td>{transaction.senderAddress}</td>
+                        <td>{transaction.senderAddress.slice(0, 6)}...</td>
                         <td className='entity-name'>{transaction.recipientName}</td>
                         <td>{transaction.recipientUEN}</td>
                         <td>{transaction.amountTransferred}</td>
+                        <td>{transaction.timeStamp}</td>
                     </tr>
                     ))}
                 </tbody>
