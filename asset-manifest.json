@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/SGQR-Pro-Max/static/css/main.c7870adb.css",
-    "main.js": "/SGQR-Pro-Max/static/js/main.70b508dd.js",
+    "main.css": "/SGQR-Pro-Max/static/css/main.98aa7299.css",
+    "main.js": "/SGQR-Pro-Max/static/js/main.c4be3e1f.js",
     "static/js/787.6d488f10.chunk.js": "/SGQR-Pro-Max/static/js/787.6d488f10.chunk.js",
     "static/media/METAMASK.png": "/SGQR-Pro-Max/static/media/METAMASK.3bdeedca06885ed41b32.png",
     "static/media/Login_BG.png": "/SGQR-Pro-Max/static/media/Login_BG.7776845717757eb7512b.png",
@@ -10,12 +10,12 @@
     "static/media/History_BG.png": "/SGQR-Pro-Max/static/media/History_BG.d2242be9a974d93122e0.png",
     "static/media/logo-white-no-bg.png": "/SGQR-Pro-Max/static/media/logo-white-no-bg.8e11ac4fc2407e7b5d1f.png",
     "index.html": "/SGQR-Pro-Max/index.html",
-    "main.c7870adb.css.map": "/SGQR-Pro-Max/static/css/main.c7870adb.css.map",
-    "main.70b508dd.js.map": "/SGQR-Pro-Max/static/js/main.70b508dd.js.map",
+    "main.98aa7299.css.map": "/SGQR-Pro-Max/static/css/main.98aa7299.css.map",
+    "main.c4be3e1f.js.map": "/SGQR-Pro-Max/static/js/main.c4be3e1f.js.map",
     "787.6d488f10.chunk.js.map": "/SGQR-Pro-Max/static/js/787.6d488f10.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c7870adb.css",
-    "static/js/main.70b508dd.js"
+    "static/css/main.98aa7299.css",
+    "static/js/main.c4be3e1f.js"
   ]
 }
