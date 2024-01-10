@@ -35,13 +35,13 @@ export default function PayToQR2(props) {
     const address = props.address; // The user's address should also be passed in props
     
     useEffect(() => {
-        console.log(props)
+        //console.log(props)
         const fetchAllowance = async () => {
             try {
                 // Assuming contract is available in your component's context
-                const allowanceValue = await contract.methods.check_allowance(props.address).call();
+                const allowanceValue = await contract.methods.allowance(props.address, CONTRACT_ADDRESS).call();
                 setAllowance(allowanceValue);
-                console.log('useeffect triggered')
+                console.log('useeffect triggered, allowance value: ', allowanceValue)
             } catch (error) {
                 console.error("Error fetching allowance:", error);
                 // Handle the error appropriately
@@ -51,49 +51,49 @@ export default function PayToQR2(props) {
         fetchAllowance();
     }, [props.address, allowance])
 
-    const retrieveZeenusTokenAddress = async () => {
+    const retrieveSGDkTokenAddress = async () => {
         try {
             const tokenAddress = await contract.methods.token_address().call();
-            console.log(`Zeenus Token Address: ${tokenAddress}`);
+            console.log(`SGDk Token Address: ${tokenAddress}`);
             return tokenAddress;
         } catch (error) {
-            console.error("Error retrieving Zeenus token address:", error);
+            console.error("Error retrieving SGDk token address:", error);
         }
     };
 
-    const approveZeenusTokenSpend = async () => {
+    const approveSGDkTokenSpend = async () => {
         if (!approvalAmount) {
             console.error("Please enter an amount to approve.");
             return;
         }
 
-        const tokenAddress = await retrieveZeenusTokenAddress(); // Retrieve token address first
-        const zeenusTokenContract = new props.web3.eth.Contract(ERC20_ABI, tokenAddress); // Use ERC20_ABI for Zeenus token contract
+        const tokenAddress = await retrieveSGDkTokenAddress(); // Retrieve token address first
+        const SGDkTokenContract = new props.web3.eth.Contract(ERC20_ABI, tokenAddress); // Use ERC20_ABI for SGDk token contract
         try {
-            await zeenusTokenContract.methods.approve(CONTRACT_ADDRESS, approvalAmount).send({ from: address });
-            console.log(`Approved the contract to spend ${approvalAmount} Zeenus tokens.`);
+            await SGDkTokenContract.methods.approve(CONTRACT_ADDRESS, approvalAmount*1000000).send({ from: address });
+            console.log(`Approved the contract to spend ${approvalAmount} SGDk tokens.`);
 
-            const allowanceValue = await contract.methods.check_allowance(address).call();
+            const allowanceValue = await contract.methods.allowance(address, CONTRACT_ADDRESS).call();
             console.log('New allowance balance: ', allowanceValue)
             setAllowance(allowanceValue);
             setApprovalAmount('')
         } catch (error) {
-            console.error("Error approving the contract to spend Zeenus tokens:", error);
+            console.error("Error approving the contract to spend SGDk tokens:", error);
         }
     };
     
-    // Function to check allowance and send Zeenus tokens to the UEN
-    const sendZeenus = async () => {
+    // Function to check allowance and send SGDk tokens to the UEN
+    const sendSGDk = async () => {
         console.log("Contract:", contract);
         console.log("UEN (extractedData):", extractedData);
-        console.log("Amount to send:", amount);
+        console.log("Amount to send:", amount*1000000);
         console.log("User address:", address);
 
         if (contract && extractedData && amount && address) { 
-            console.log("Sending Zeenus:", amount, "to UEN:", extractedData);
+            console.log("Sending SGDk:", amount, "to UEN:", extractedData);
             try {
                 // Ensure you have enough allowance to perform the transfer
-                const allowance = await contract.methods.check_allowance(address).call({ from: address });
+                const allowance = await contract.methods.allowance(address, CONTRACT_ADDRESS).call({ from: address });
                 console.log("Allowance:", allowance);
                 console.log("Amount:", amount);
                 if (Number(allowance) < Number(amount)) {
@@ -105,7 +105,7 @@ export default function PayToQR2(props) {
                 else {
                     // setIsLoadingTransaction(true)
                     // console.log('isLoading is set to true')
-                    const receipt = await contract.methods.send_tokens_to_uen(extractedData, amount).send({ from: address });
+                    const receipt = await contract.methods.send_token_to_uen(extractedData, amount*1000000).send({ from: address });
                     if (receipt.status) {
                         // setIsLoadingTransaction(false)
                         // console.log('isLoading is set to false')
@@ -114,6 +114,21 @@ export default function PayToQR2(props) {
                         alert('Transaction successful')
                         setIsPopup(false)
                         setIsDoneScanning(false)
+
+                        const currentTimeStamp = new Date()
+                        const formattedDate = currentTimeStamp.toLocaleDateString(); // e.g., 'MM/DD/YYYY'
+                        const formattedTime = currentTimeStamp.toLocaleTimeString(); // e.g., 'HH:MM:SS AM/PM'
+
+                        setTransactions(prevTransactions => [
+                            ...prevTransactions,
+                            {
+                                senderAddress: address,
+                                recipientUEN: extractedData,
+                                recipientName: retrievedName,
+                                amountTransferred: amount,
+                                timeStamp: `${formattedDate} ${formattedTime}`
+                            }
+                        ]);
                     }
                     else {
                         // setIsLoadingTransaction(false)
@@ -122,7 +137,7 @@ export default function PayToQR2(props) {
                         return 
                     }
                 }
-                const new_allowance = await contract.methods.check_allowance(address).call({ from: address });
+                const new_allowance = await contract.methods.allowance(address, CONTRACT_ADDRESS).call({ from: address });
                 console.log("New Allowance:", new_allowance);
                 setAllowance(new_allowance)
                 // After confirming the allowance, send the tokens
@@ -131,18 +146,10 @@ export default function PayToQR2(props) {
 
                 //submitUEN();
 
-                setTransactions(prevTransactions => [
-                    ...prevTransactions,
-                    {
-                        senderAddress: address,
-                        recipientUEN: extractedData,
-                        recipientName: retrievedName,
-                        amountTransferred: amount
-                    }
-                ]);
-                console.log("Zeenus sent successfully to UEN:", extractedData);
+                
+                console.log("SGDk sent successfully to UEN:", extractedData);
             } catch (error) {
-                console.error("Error sending Zeenus:", error);
+                console.error("Error sending SGDk:", error);
             }
         } else {
             console.error("Missing contract, UEN, amount data, or user address");
@@ -214,19 +221,19 @@ export default function PayToQR2(props) {
             <div className='form-group'>
             {/* <div style={{fontSize: '30px', marginBottom:'20px'}}>Transfer Limit</div> */}
             <div className='new-h2'>Transfer Limit</div>
-            <div style={{fontSize: '60px'}}>{allowance} <span style={{fontSize: '30px'}}>ZEENUS</span></div>
+            <div style={{fontSize: '60px'}}>{allowance/1000000} <span style={{fontSize: '30px'}}>SGDk</span></div>
                 <div className="action">
-                    <p className="action-description">Adjust your limit by approving ZEENUS tokens!</p>
+                    <p className="action-description">Adjust your limit by approving SGDk tokens!</p>
                     <div className='withdraw-form-component'>
                         <input 
                             className='input-field'
                             type="text" 
                             value={approvalAmount} 
                             onChange={(e) => setApprovalAmount(e.target.value)} 
-                            placeholder="Zeenus tokens to approve" 
+                            placeholder="SGDk tokens to approve" 
                         />
                     </div>
-                    <button onClick={approveZeenusTokenSpend} className="merchant-btn">
+                    <button onClick={approveSGDkTokenSpend} className="merchant-btn">
                         Approve Tokens
                     </button>                        
                 </div>
@@ -282,9 +289,9 @@ export default function PayToQR2(props) {
                                         className='transaction-input'
                                         placeholder='0.00'
                                     />
-                                    <span style={{fontSize: '20px', marginLeft: '10px'}}>ZEENUS</span>
+                                    <span style={{fontSize: '20px', marginLeft: '10px'}}>SGDk</span>
                                 </div>
-                                <button onClick={sendZeenus} className="send-token-btn">
+                                <button onClick={sendSGDk} className="send-token-btn">
                                     Send Tokens
                                 </button>
                             </div>
@@ -316,15 +323,17 @@ export default function PayToQR2(props) {
                     <th>Entity Name</th>
                     <th>UEN</th>
                     <th>Amount</th>
+                    <th>Time</th>
                     </tr>
                 </thead>
                 <tbody>
                     {transactions.map((transaction, index) => (
                     <tr key={index}>
-                        <td>{transaction.senderAddress}</td>
+                        <td>{transaction.senderAddress.slice(0, 6)}...</td>
                         <td className='entity-name'>{transaction.recipientName}</td>
                         <td>{transaction.recipientUEN}</td>
                         <td>{transaction.amountTransferred}</td>
+                        <td>{transaction.timeStamp}</td>
                     </tr>
                     ))}
                 </tbody>

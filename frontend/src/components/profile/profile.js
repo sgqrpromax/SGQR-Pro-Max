@@ -8,23 +8,23 @@ import { ERC20_ABI} from "../../contracts/erc20";
 
 export default function Profile(props){
 
-    // Fetch Zeenus balance when the component mounts or when props.address/props.isConnected changes
+    // Fetch SGDk balance when the component mounts or when props.address/props.isConnected changes
     useEffect(() => {
-        const fetchZeenusBalance = async () => {
+        const fetchSGDkBalance = async () => {
             if (props.isConnected && props.address) {
                 try {
                     const tokenAddress = await props.contract.methods.token_address().call();
-                    const zeenusTokenContract = new props.web3.eth.Contract(ERC20_ABI, tokenAddress);
-                    const zeenusBalance = await zeenusTokenContract.methods.balanceOf(props.address).call();
-                    props.setBalance(zeenusBalance); // Update balance with fetched balance
+                    const SGDkTokenContract = new props.web3.eth.Contract(ERC20_ABI, tokenAddress);
+                    const SGDkBalance = await SGDkTokenContract.methods.balanceOf(props.address).call();
+                    props.setBalance(SGDkBalance); // Update balance with fetched balance
                 } catch (error) {
-                    console.error("Error fetching ZEENUS balance:", error);
+                    console.error("Error fetching SGDk balance:", error);
                     props.setBalance(null); // Set balance to null or handle error state as appropriate
                 }
             }
         };
 
-        fetchZeenusBalance();
+        fetchSGDkBalance();
     }, [props.address, props.isConnected, props.contract, props.web3, props.setBalance]);
 
     // Function component for profile page content
@@ -48,7 +48,7 @@ export default function Profile(props){
     //                     <br/>
     //                     Balance:&nbsp;
     //                     <span className = "global-message">{props.balance}</span>
-    //                     &nbsp;ZEENUS
+    //                     &nbsp;SGDk
     //                 </p> */}
     //                 <div className='profile-details'>
     //                     <div className='global-message'>Address: {props.address}</div>
@@ -67,7 +67,7 @@ export default function Profile(props){
         <div className = "profile-background">
             <h2>Profile</h2>
             <div className = "profile">
-                <div style={{fontSize: '60px'}}>{props.balance} <span style={{fontSize: '30px'}}>ZEENUS</span></div>
+                <div style={{fontSize: '60px'}}>{props.balance/1000000} <span style={{fontSize: '30px'}}>SGDk</span></div>
                 <img src = {METAMASK} alt = "logo" height={200} />
                 <div style={{wordBreak: 'break-all'}}>{props.address}</div>
                 <div style={{opacity: '0.75'}}>{props.networkType}</div>

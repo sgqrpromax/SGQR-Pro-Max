@@ -1,8 +1,6 @@
-export const CONTRACT_ADDRESS = "0x1F11B837513dF2F3e17D5b017f83C5c17C76261f";
+export const CONTRACT_ADDRESS = "0x23ed1f054F5fb7e8b6d72735AF562D8942582619";
 export const CONTRACT_ABI = [
     {
-        "type": "function",
-        "name": "admin_withdraw",
         "inputs": [
             {
                 "internalType": "address",
@@ -15,6 +13,7 @@ export const CONTRACT_ABI = [
                 "type": "uint256"
             }
         ],
+        "name": "admin_withdraw",
         "outputs": [
             {
                 "internalType": "bool",
@@ -22,11 +21,10 @@ export const CONTRACT_ABI = [
                 "type": "bool"
             }
         ],
-        "stateMutability": "nonpayable"
+        "stateMutability": "nonpayable",
+        "type": "function"
     },
     {
-        "type": "function",
-        "name": "admins",
         "inputs": [
             {
                 "internalType": "uint256",
@@ -34,6 +32,7 @@ export const CONTRACT_ABI = [
                 "type": "uint256"
             }
         ],
+        "name": "admins",
         "outputs": [
             {
                 "internalType": "address",
@@ -41,11 +40,10 @@ export const CONTRACT_ABI = [
                 "type": "address"
             }
         ],
-        "stateMutability": "view"
+        "stateMutability": "view",
+        "type": "function"
     },
     {
-        "type": "function",
-        "name": "allowance",
         "inputs": [
             {
                 "internalType": "address",
@@ -58,6 +56,7 @@ export const CONTRACT_ABI = [
                 "type": "address"
             }
         ],
+        "name": "allowance",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -65,23 +64,30 @@ export const CONTRACT_ABI = [
                 "type": "uint256"
             }
         ],
-        "stateMutability": "view"
+        "stateMutability": "view",
+        "type": "function"
     },
     {
-        "type": "function",
-        "name": "approve",
+        "inputs":[],
+        "name":"token_address",
+        "outputs":[
+            {
+                "internalType":"address",
+                "name":"","type":"address"
+            }
+        ],
+        "stateMutability":"view",
+        "type":"function"
+    },
+    {
         "inputs": [
             {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            },
-            {
                 "internalType": "uint256",
-                "name": "",
+                "name": "_amount",
                 "type": "uint256"
             }
         ],
+        "name": "approve_token",
         "outputs": [
             {
                 "internalType": "bool",
@@ -89,11 +95,10 @@ export const CONTRACT_ABI = [
                 "type": "bool"
             }
         ],
-        "stateMutability": "pure"
+        "stateMutability": "nonpayable",
+        "type": "function"
     },
     {
-        "type": "function",
-        "name": "balanceOf",
         "inputs": [
             {
                 "internalType": "address",
@@ -101,6 +106,7 @@ export const CONTRACT_ABI = [
                 "type": "address"
             }
         ],
+        "name": "balanceOf",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -108,11 +114,10 @@ export const CONTRACT_ABI = [
                 "type": "uint256"
             }
         ],
-        "stateMutability": "view"
+        "stateMutability": "view",
+        "type": "function"
     },
     {
-        "type": "function",
-        "name": "balance_of_uen",
         "inputs": [
             {
                 "internalType": "string",
@@ -120,6 +125,7 @@ export const CONTRACT_ABI = [
                 "type": "string"
             }
         ],
+        "name": "balance_of_uen",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -127,12 +133,31 @@ export const CONTRACT_ABI = [
                 "type": "uint256"
             }
         ],
-        "stateMutability": "view"
+        "stateMutability": "view",
+        "type": "function"
     },
     {
-        "type": "function",
-        "name": "check_whitelist",
+        "inputs":[
+            {
+                "internalType":"address",
+                "name":"_address",
+                "type":"address"
+            }
+        ],
+        "name": "check_allowance",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
         "inputs": [],
+        "name": "check_whitelist",
         "outputs": [
             {
                 "internalType": "string",
@@ -140,12 +165,12 @@ export const CONTRACT_ABI = [
                 "type": "string"
             }
         ],
-        "stateMutability": "view"
+        "stateMutability": "view",
+        "type": "function"
     },
     {
-        "type": "function",
-        "name": "decimals",
         "inputs": [],
+        "name": "decimals",
         "outputs": [
             {
                 "internalType": "uint8",
@@ -153,18 +178,18 @@ export const CONTRACT_ABI = [
                 "type": "uint8"
             }
         ],
-        "stateMutability": "pure"
+        "stateMutability": "view",
+        "type": "function"
     },
     {
-        "type": "function",
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_uen",
+                "type": "string"
+            }
+        ],
         "name": "get_name",
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "_uen",
-                "type": "string"
-            }
-        ],
         "outputs": [
             {
                 "internalType": "string",
@@ -172,12 +197,12 @@ export const CONTRACT_ABI = [
                 "type": "string"
             }
         ],
-        "stateMutability": "view"
+        "stateMutability": "view",
+        "type": "function"
     },
     {
-        "type": "function",
+        "inputs": [],
         "name": "name",
-        "inputs": [],
         "outputs": [
             {
                 "internalType": "string",
@@ -185,11 +210,10 @@ export const CONTRACT_ABI = [
                 "type": "string"
             }
         ],
-        "stateMutability": "view"
+        "stateMutability": "view",
+        "type": "function"
     },
     {
-        "type": "function",
-        "name": "send_token_to_uen",
         "inputs": [
             {
                 "internalType": "string",
@@ -202,6 +226,7 @@ export const CONTRACT_ABI = [
                 "type": "uint256"
             }
         ],
+        "name": "send_tokens_to_uen",
         "outputs": [
             {
                 "internalType": "bool",
@@ -209,12 +234,12 @@ export const CONTRACT_ABI = [
                 "type": "bool"
             }
         ],
-        "stateMutability": "nonpayable"
+        "stateMutability": "nonpayable",
+        "type": "function"
     },
     {
-        "type": "function",
-        "name": "symbol",
         "inputs": [],
+        "name": "symbol",
         "outputs": [
             {
                 "internalType": "string",
@@ -222,39 +247,25 @@ export const CONTRACT_ABI = [
                 "type": "string"
             }
         ],
-        "stateMutability": "view"
+        "stateMutability": "view",
+        "type": "function"
     },
-    //Get SGDk address
     {
-        "type": "function",
-        "name": "targetToken",
         "inputs": [],
+        "name": "token",
         "outputs": [
             {
-                "internalType": "address",
+                "internalType": "contract IERC20",
                 "name": "",
                 "type": "address"
             }
         ],
-        "stateMutability": "view"
+        "stateMutability": "view",
+        "type": "function"
     },
     {
-        "type": "function",
-        "name": "token_address",
         "inputs": [],
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view"
-    },
-    {
-        "type": "function",
         "name": "totalSupply",
-        "inputs": [],
         "outputs": [
             {
                 "internalType": "uint256",
@@ -262,23 +273,23 @@ export const CONTRACT_ABI = [
                 "type": "uint256"
             }
         ],
-        "stateMutability": "view"
+        "stateMutability": "view",
+        "type": "function"
     },
     {
-        "type": "function",
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_to",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_amount",
+                "type": "uint256"
+            }
+        ],
         "name": "transfer",
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_to",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "_amount",
-                "type": "uint256"
-            }
-        ],
         "outputs": [
             {
                 "internalType": "bool",
@@ -286,40 +297,29 @@ export const CONTRACT_ABI = [
                 "type": "bool"
             }
         ],
-        "stateMutability": "nonpayable"
+        "stateMutability": "nonpayable",
+        "type": "function"
     },
     {
-        "type": "function",
-        "name": "transferFrom",
         "inputs": [
             {
-                "internalType": "address",
-                "name": "_from",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "_to",
-                "type": "address"
-            },
-            {
                 "internalType": "uint256",
-                "name": "_amount",
+                "name": "",
                 "type": "uint256"
             }
         ],
+        "name": "uen_list",
         "outputs": [
             {
-                "internalType": "bool",
+                "internalType": "string",
                 "name": "",
-                "type": "bool"
+                "type": "string"
             }
         ],
-        "stateMutability": "nonpayable"
+        "stateMutability": "view",
+        "type": "function"
     },
     {
-        "type": "function",
-        "name": "uen_send",
         "inputs": [
             {
                 "internalType": "string",
@@ -332,6 +332,7 @@ export const CONTRACT_ABI = [
                 "type": "uint256"
             }
         ],
+        "name": "uen_send",
         "outputs": [
             {
                 "internalType": "bool",
@@ -339,11 +340,10 @@ export const CONTRACT_ABI = [
                 "type": "bool"
             }
         ],
-        "stateMutability": "nonpayable"
+        "stateMutability": "nonpayable",
+        "type": "function"
     },
     {
-        "type": "function",
-        "name": "uen_to_balance",
         "inputs": [
             {
                 "internalType": "string",
@@ -351,6 +351,7 @@ export const CONTRACT_ABI = [
                 "type": "string"
             }
         ],
+        "name": "uen_to_balance",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -358,57 +359,8 @@ export const CONTRACT_ABI = [
                 "type": "uint256"
             }
         ],
-        "stateMutability": "view"
-    },
-    {
-        "type": "event",
-        "name": "Approval",
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "owner",
-                "indexed": true,
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "spender",
-                "indexed": true,
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "value",
-                "indexed": false,
-                "type": "uint256"
-            }
-        ],
-        "anonymous": false
-    },
-    {
-        "type": "event",
-        "name": "Transfer",
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "from",
-                "indexed": true,
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "to",
-                "indexed": true,
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "value",
-                "indexed": false,
-                "type": "uint256"
-            }
-        ],
-        "anonymous": false
-    },
+        "stateMutability": "view",
+        "type": "function"
+    }
+    // ... (add any other functions that are part of the full ABI here)
 ];
-    
