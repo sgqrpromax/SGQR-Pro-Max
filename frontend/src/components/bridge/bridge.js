@@ -70,7 +70,7 @@ export default function Bridge({ contract, isConnected, web3 }) {
                                 className='input-field'
                                 type="text"
                                 ref={transferAmountRef}
-                                placeholder="e.g. 0.25 ZEENUS"
+                                placeholder="e.g. 0.25 SGD"
                             />
                         </div>
                         <button type="submit" className='merchant-btn'>Bridge Now</button>

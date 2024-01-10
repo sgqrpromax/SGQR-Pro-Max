@@ -41,7 +41,7 @@ async function XLS38Bridge() {
   const bridge = bridgeData.result.account_objects[0].XChainBridge
   const bridgeDataSignatureReward = bridgeData.result.account_objects[0].SignatureReward
   const bridgeDataMin = bridgeData.result.account_objects[0].MinAccountCreateAmount
-  console.log("Bridge signature reweard:")
+  console.log("Bridge signature reward:")
   console.log(bridgeDataSignatureReward)
   console.log("Bridge account min:")
   console.log(bridgeDataMin)  
