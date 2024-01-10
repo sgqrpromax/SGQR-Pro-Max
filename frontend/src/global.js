@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { BsQrCodeScan } from "react-icons/bs";
 import { BiSolidWallet } from "react-icons/bi";
-import { GiReceiveMoney } from "react-icons/gi";
+import { GiReceiveMoney, GiStoneBridge } from "react-icons/gi";
 
 export const BackgroundCovered = '#282c34';
 export const BackgroundUncovered = 'white';
@@ -31,6 +31,12 @@ export const GlobalToolBar = () => {
                 <div className="toolbar-btn">
                     <GiReceiveMoney size={30} style={{paddingBottom: "5px"}}/>
                     Merchant   
+                </div>
+            </Link> {/* Adjusted to relative path */}
+            <Link to="/bridge" className="global-btn">
+                <div className="toolbar-btn">
+                    <GiStoneBridge size={30} style={{paddingBottom: "5px"}}/>
+                    Bridge   
                 </div>
             </Link> {/* Adjusted to relative path */}
         </div>

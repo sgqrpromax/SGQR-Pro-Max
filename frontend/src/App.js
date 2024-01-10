@@ -12,6 +12,7 @@ import Merchant from "./components/merchant/merchant";
 import { CONTRACT_ABI, CONTRACT_ADDRESS } from "./contracts/config";
 import { ERC20_ABI} from "./contracts/erc20";
 import PayToQR2 from './components/paytoqr/paytoqr2'; // for testing purposes
+import Bridge from './components/bridge/bridge';
 
 export default function App() {
     const [haveMetamask, setHaveMetamask] = useState(true);     // check if the browser has MetaMask installed. 
@@ -158,6 +159,16 @@ export default function App() {
             />
         )
     }
+
+    const BridgeDisplay = () => {
+        return (
+            <Bridge 
+                web3={web3}
+                isConnected = {isConnected}
+                address={address}
+            />
+        )
+    }
       
     return (
         <div className="App">
@@ -166,6 +177,7 @@ export default function App() {
             <Route path="/profile" element={<ProfileDisplay />} />
             <Route path="/paytoqr" element={<PayToQRDisplay />} />
             <Route path="/merchant" element={<MerchantDisplay />} />
+            <Route path="/bridge" element={<BridgeDisplay />} />
           </Routes>
         </div>
       );
