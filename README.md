@@ -81,9 +81,3 @@ This script deploys the UEN to the smart contract taking the data from the local
 * For merchants, what they want to do is to view the amount of SGDk token they have. The merchant have 2 options to do this:
   * Merchants that are not onboarded can use the frontend and enter their UEN to view the amount of tokens they currently have. 
   * Merchants that have already onboarded can add the deployment address of `bank.sol` directly to any wallet of their choice and it will be shown as an ERC20 token.
-
-## TODO
-
-## WEN MOON
-1. BTC 100K 2021 Q10
-1. PROFIT???!!
