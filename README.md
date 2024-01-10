@@ -8,8 +8,28 @@ New stablecoin created: SGDk (k for constant)
 1. frontend
 1. backend (to be deprecated)
 
-## Front end
-*Insert front end stuff here.*
+## Frontend
+The frontend was built with React, HTML and CSS to create a website that works on both computer and mobile.
+
+To access the website, user will be prompted to connect his/her Metamask wallet to the website when the user clicks on the "Get Started" button.
+Upon entering the website, the user has access to a number of pages.
+
+### Pay To QR Page
+First, the user needs to approve an amount of SGDk tokens for our backend smart contract to use.
+
+Next, there is a QR code scanner that the user can use to scan SGQR codes across Singapore. Upon successfully the code, the website will return the retrieved name and UEN for the user to verify.
+The user can then key the desired amount of tokens he/she wants to transfer to the merchant and then approve and sign the transaction. Our smart contract will then transfer the SGDk tokens from the user's wallet to the merchant's wallet address under the specific UEN.
+
+Below the QR code scanner, there is the user's transaction history.
+
+### Profile Page
+Here the user can view his/her SGDk token balance as well as the wallet address connected to the site and the network the wallet is connected to.
+
+### Merchant Dashboard Page
+This page is for merchants to withdraw their SGDk tokens from their UEN wallets to their own wallets, whose wallet addresses have already been whitelisted in our backend smart contracts.
+The merchant just needs to key in their wallet address as well as the amount of SGDk they would like to withdraw.
+
+Merchants can also check their SGDk token balance based on the UEN.
 
 ## Smart contract backend overview
 The smart contract backend contains 2 portions, one for the XRP EVM Side chain, and another one for the XRPL Main chain. They're described in details below.
