@@ -1,6 +1,6 @@
 # Overview of project
 
-Project report link *insert report here*
+[SGQR Pro Max Report](https://docs.google.com/document/d/1gl4Az8Ru_RCtfZpL4rT_4Ridk-icp56TpXDgvwWStM0/edit)
 
 New stablecoin created: SGDk (k for constant)
 
