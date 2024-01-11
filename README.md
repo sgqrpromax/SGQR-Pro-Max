@@ -73,6 +73,8 @@ To receive SGDk, simply send any amount of XRP token (gas token) to the SGDk con
 ### UEN Management
 Many SGQR around Singapore do not have UENs in them as they are not proper SGQR. As XRP EVM is also slightly limited, we only managed to get 5000 UENs uploaded onto the database for the time being. For now, if you want to test any UENs, we can manually add them into the blockchain. 
 
+For now, [the UENs present are here](contract/script/python/uen_data/full_uen_filtered_list/d_0cc5f52a1f298b916f317800251057f3).
+
 ## Frontend
 The frontend was built with React, HTML and CSS to create a website that works on both computer and mobile.
 
