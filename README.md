@@ -42,6 +42,9 @@ No money wasted on maintaining critical server infrastructures. All our financia
 1. XRPL Main chain and XRP EVM Side chain intergration
 
 ## To test it out yourself
+
+[Video demonstration](https://www.youtube.com/watch?v=NgOn1ZzMZlw)
+
 ### Pay to merchant
 1. Download metamask on your phone
 1. Import an onboarded merchant account here. `table obtain ship purse entire recall vendor olympic keen angry genius bounce`
